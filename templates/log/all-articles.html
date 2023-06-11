@@ -1,0 +1,199 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-2KL1G40CWG"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	
+	  gtag('config', 'G-2KL1G40CWG');
+	</script>
+	
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Öszzes cikkem</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+	<link rel="stylesheet" type="text/css" href="{% static 'main/style.css' %}">
+	<link rel="icon" type="image/x-icon" href="{% static 'main/pics/favicon-alpha.png' %}">
+</head>
+<body>
+
+
+
+	{% if approved or pending or rejected%}
+	{% include 'main/navbar.html' %}
+			<main>
+				<div class="wrapper">
+					<div class="row">
+						<div class="card-04 backg">
+							<h1 align="center">Az összes cikkem</h1>
+							<h3 align="center">Itt látod a cikkek státuszát</h3>
+						</div>
+					</div>
+					<div class="row">
+						{% if approved %}
+						<div class="card-04 topic-big-screen">
+							<div class="box-title mb-3 pb-0">
+								<h4 class="txt-black mb-0 m-0">Engedélyezett<h4>
+							</div>
+							{% for articleuser in approved%}
+							<div class="article-with-pic-1">
+								<div class="article-pic">
+									<a href="{% url 'user-article' articleuser.title %}">
+									<img src="{{ articleuser.indeximg.url }}" alt="" />
+									</a>
+								</div>
+								<div class="pic-with-articles">
+									<a href="{% url 'user-article' articleuser.title %}">
+										<h5>{{ articleuser.title|truncatechars:60 }}</h5>
+										<h6>{{ articleuser.body|truncatechars:200|safe }}</h6>
+									</a>
+									<small><span style="color: black;">{{ articleuser.created }}</span>  |  <span><a href="#">{{ articleuser.status }}</a></span></small>
+								</div>
+							</div>
+							{% endfor %}
+						</div>
+						{% endif %}
+					</div>
+
+                    <div class="row">
+						{% if pending %}
+						<div class="card-04 topic-big-screen">
+							<div class="box-title mb-3 pb-0">
+								<h4 class="txt-black mb-0 m-0">Engedélyeztetésre vár<h4>
+							</div>
+							{% for articleuser in pending %}
+							<div class="article-with-pic-1">
+								<div class="article-pic">
+									<a href="{% url 'user-article' articleuser.title %}">
+									<img src="{{ articleuser.indeximg.url }}" alt="" />
+									</a>
+								</div>
+								<div class="pic-with-articles">
+									<a href="{% url 'user-article' articleuser.title %}">
+										<h5>{{ articleuser.title|truncatechars:60 }}</h5>
+										<h6>{{ articleuser.body|truncatechars:200|safe }}</h6>
+									</a>
+									<small><span style="color: black;">{{ articleuser.created }}</span>  |  <span><a href="#">{{ articleuser.status }}</a></span></small>
+								</div>
+							</div>
+							{% endfor %}
+						</div>
+						{% endif %}
+					</div>
+
+                    <div class="row">
+						{% if rejected %}
+						<div class="card-04 topic-big-screen">
+							<div class="box-title mb-3 pb-0">
+								<h4 class="txt-black mb-0 m-0">Elutasított<h4>
+							</div>
+							{% for articleuser in rejected %}
+							<div class="article-with-pic-1">
+								<div class="article-pic">
+									<a href="{% url 'user-article' articleuser.title %}">
+									<img src="{{ articleuser.indeximg.url }}" alt="" />
+									</a>
+								</div>
+								<div class="pic-with-articles">
+									<a href="{% url 'user-article' articleuser.title %}">
+										<h5>{{ articleuser.title|truncatechars:60 }}</h5>
+										<h6>{{ articleuser.body|truncatechars:200|safe }}</h6>
+									</a>
+									<small><span style="color: black;">{{ articleuser.created }}</span>  |  <span><a href="#">{{ articleuser.status }}</a></span></small>
+								</div>
+							</div>
+							{% endfor %}
+						</div>
+						{% endif %}
+					</div>
+
+					<div class="mobile-topic">
+					    <div class="row">
+                            {% if approved %}
+						    <div class="card-04">
+                                <div class="box-title mb-3 pb-0">
+                                    <h4 class="txt-black mb-0 m-0">Engedélyeztett</h4>
+                                </div>
+								{% for articleuser in approved %}
+								<div class="recent-articles mt-4 mb-3 txt-black">
+									<a href="{% url 'user-article' articleuser.title %}">
+										<img class="mobile-pics-img" src="{{ articleuser.indeximg.url }}" alt="">
+										<h3 class="txt-black">{{ articleuser.title|truncatechars:30 }}</h3>
+										<h4 class="txt-black">{{ articleuser.body|truncatechars:70|safe }}</h4>
+									</a>
+									<small class="txt-black"><span><a class="txt-black" href="{% url 'article-page' articleuser.category %}">{{ articleuser.status}}</a></span></small>
+								</div>
+								{% endfor %}
+							</div>
+                            {% endif %}
+						</div>
+                        
+                        <div class="row">
+                            {% if pending %}
+						    <div class="card-04">
+                                <div class="box-title mb-3 pb-0">
+                                    <h4 class="txt-black mb-0 m-0">Engedélyezésre vár</h4>
+                                </div>
+								{% for articleuser in pending %}
+								<div class="recent-articles mt-4 mb-3 txt-black">
+									<a href="{% url 'user-article' articleuser.title %}">
+										<img class="mobile-pics-img" src="{{ articleuser.indeximg.url }}" alt="">
+										<h3 class="txt-black">{{ articleuser.title|truncatechars:30 }}</h3>
+										<h4 class="txt-black">{{ articleuser.body|truncatechars:70|safe }}</h4>
+									</a>
+									<small class="txt-black"><span><a class="txt-black" href="{% url 'article-page' articleuser.category %}">{{ articleuser.category }}</a></span>  |  <span><a class="txt-black" href="#">{{article.user.profile.name}}</a></span></small>
+								</div>
+								{% endfor %}
+							</div>
+                            {% endif %}
+						</div>
+
+                        <div class="row">
+                            {% if rejected %}
+						    <div class="card-04">
+                                <div class="box-title mb-3 pb-0">
+                                    <h4 class="txt-black mb-0 m-0">Elutasítva</h4>
+                                </div>
+								{% for articleuser in rejected %}
+								<div class="recent-articles mt-4 mb-3 txt-black">
+									<a href="{% url 'user-article' articleuser.title %}">
+										<img class="mobile-pics-img" src="{{ articleuser.indeximg.url }}" alt="">
+										<h3 class="txt-black">{{ articleuser.title|truncatechars:30 }}</h3>
+										<h4 class="txt-black">{{ articleuser.body|truncatechars:70|safe }}</h4>
+									</a>
+									<small class="txt-black"><span><a class="txt-black" href="{% url 'article-page' articleuser.category %}">{{ article.category }}</a></span>  |  <span><a class="txt-black" href="#">{{articleuser.status}}</a></span></small>
+								</div>
+								{% endfor %}
+							</div>
+                            {% endif %}
+						</div>
+
+					</div>
+			</main>
+			{% include 'main/footer.html' %}
+			
+	{% else %}
+
+	
+
+	<main>
+		<div class="wrapper">
+			<div class="row">
+				<div class="card-04 backg">
+					<h1 align="center">Még nem írtál cikket!</h1>
+					<h3 align="center"></h3>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	{% endif %}
+
+
+</body>
+</html>

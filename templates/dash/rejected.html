@@ -1,0 +1,18 @@
+{% for articleuser in articles %}
+				<div class="card-03" style="padding: 20px;">
+						<div class="article-with-pic-1">
+							<a href="#">
+							<div class="article-pic">
+								<!--<img style="height: 100px" src="{{ article.indeximg.url }}" alt="" />-->
+							</div>
+							<div class="pic-with-articles">
+								<a href="#">
+									<h5>{{ articleuser.title|truncatechars:60 }}</h5>
+								</a>
+								<small><span><a href="#">{{ articleuser.category }}</a></span>  |  <span><a href="#">{{ articleuser.user.profile.name }}</a></span></small>
+							</div>
+							</a>
+						</div>
+						<p align="right">Rejected<a href="#"><button class="check-member-btn" href="/">Change</button></a><p>
+				</div>
+				{% endfor %}

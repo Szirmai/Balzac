@@ -1,0 +1,41 @@
+
+{{ user.username }}<br>
+{{ user.email }}<br>
+{{ user.id }}<br>
+{{ user.groups }}<br>
+{{ user.last_login }}<br>
+{{ user.date_joined }}<br>
+name:
+{{ user.profile.name }}<br>
+bio:
+{{ user.profile.bio }}<br>
+
+<br>
+<img src="{{ user.profile.img.url }}" alt="" /><p>
+
+<p>Te követed:</p>
+
+
+<p>Ő Követ:</p>
+
+<p>Update Profile:</p>
+<a href="{% url 'profile-update' %}">update-profile</a><br>
+
+Cikk feltöltése:
+<a href="{% url 'upload-article' %}">Akarok küldeni egy cikket!</a><br><br><br><br><br><br><br><br><br>
+
+
+
+{% for message in messages %}
+<p align='center'>{{ message }}<p>
+{% endfor %}
+
+cikkeim:
+{% for article in articles %}
+{{ article.title }}<br>
+<img scr="{{ article.indeximg.url }}" alt="" /><br>
+{{ article.body|safe }}<br>
+{{ article.category }}<br>
+{{ article.created|timesince }} ago<br>
+@ {{ article.user.username }}<br>
+{% endfor %}

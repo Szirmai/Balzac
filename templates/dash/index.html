@@ -1,0 +1,193 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Web'dash</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'dash/style.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'dash/style1.css' %}">
+	<link rel="icon" type="image/x-icon" href="{% static 'dash/favicon1.png' %}">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+	{% include 'dash/navbartop.html' %}
+
+
+	{% include 'dash/navbarphone.html' %}
+
+
+<div class="grid">
+	
+	{% include 'dash/navbarside.html' %}
+
+    	<main class="main">
+			{% for message in messages %}
+			<div class="card-03" style="padding: 20px;">
+				<h1 align="center"><a href="/">{{ message }}</a></h1>
+			</div>
+			{% endfor %}
+    		<div class="row">
+                <div class="card-01">
+                	<div class="card-1-layout">
+                			<div class="info-1-left">
+                				<h3>Users</h3>
+                				<h1>{{ user_count }}</h1>
+                			</div>
+                			<div class="info-1-right"><span class="material-symbols-outlined card-1-des pos-ab">group</span></div>
+                	</div>
+                </div>
+				<div class="card-01">
+                	<div class="card-1-layout">
+                			<div class="info-1-left">
+                				<h3>Articles</h3>
+                				<h1>{{ article_count }}</h1>
+                			</div>
+                			<div class="info-1-right"><span class="material-symbols-outlined card-1-des pos-ab">description</span></div>
+                	</div>
+                </div>
+				<div class="card-01">
+                	<div class="card-1-layout">
+                			<div class="info-1-left">
+                				<h3>Videos</h3>
+                				<h1>{{ videos_count }}</h1>
+                			</div>
+                			<div class="info-1-right"><span class="material-symbols-outlined card-1-des pos-ab">play_circle</span></div>
+                	</div>
+                </div>
+				<div class="card-01">
+                	<div class="card-1-layout">
+                			<div class="info-1-left">
+                				<h3>Pending User Articles</h3>
+                				<h1>{{ pendingua }}</h1>
+                			</div>
+                			<div class="info-1-right"><span class="material-symbols-outlined card-1-des pos-ab">badge</span></div>
+                	</div>
+                </div>
+				<div class="card-01">
+                	<div class="card-1-layout">
+                			<div class="info-1-left">
+                				<h3>Pending Articles</h3>
+                				<h1>{{ pendingarticle }}</h1>
+                			</div>
+                			<div class="info-1-right"><span class="material-symbols-outlined card-1-des pos-ab">pending_actions</span></div>
+                	</div>
+                </div>
+				<div class="card-01">
+                	<div class="card-1-layout">
+                			<div class="info-1-left">
+                				<h3>Pending Videos</h3>
+                				<h1>{{ pendingvideo }}</h1>
+                			</div>
+                			<div class="info-1-right"><span class="material-symbols-outlined card-1-des pos-ab">autoplay</span></div>
+                	</div>
+                </div>
+				<div class="card-01">
+                	<div class="card-1-layout">
+                			<div class="info-1-left">
+                				<h3>Mails</h3>
+                				<h1>{{ mail_count }}</h1>
+                			</div>
+                			<div class="info-1-right"><span class="material-symbols-outlined card-1-des pos-ab">mail</span></div>
+                	</div>
+                </div>
+				<div class="card-01">
+                	<div class="card-1-layout">
+                			<div class="info-1-left">
+                				<h3>Tasks</h3>
+                				<h1>{{ tasks_count }}</h1>
+                			</div>
+                			<div class="info-1-right"><span class="material-symbols-outlined card-1-des pos-ab">list</span></div>
+                	</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card-04">
+                	<h2>Recent Login</h2>
+                	<table id="customers">
+					  <tr>
+					    <th>Username</th>
+					    <th>E-mail</th>
+					    <th>Last login</th>
+					  </tr>
+					  {% for user in users %}
+					  <tr>
+					    <td>{{ user.username }}</td>
+					    <td>{{ user.email }}</td>
+					    <td> {{ user.last_login }} </td>
+					  </tr>
+					  {% endfor %}
+					</table>
+                </div>
+                <div class="card-04">
+                	<h2>Tasks</h2>
+					<table id="customers">
+						<thead>
+					  <tr class="pos-r">
+						{% if request.user.is_superuser %}
+					    <th><span class="material-symbols-outlined">delete</span></th>
+						{% endif %}
+					    <th>Tasks</th>
+					  </tr>
+					  </thead>
+					  
+						{% for task in tasks %}
+							<tr>
+								{% if request.user.is_superuser %}
+								<td><a href="{% url 'delete-task' task.id %}"><h2 style="border: 0;"><span class="material-symbols-outlined">delete</span></h2></a></td>
+								{% endif %}
+								<td>{{ task.title|truncatechars:40 }}</td>
+							</tr>
+						{% endfor %}
+					  
+					</table>
+                </div>
+            </div>
+			<div class="row">
+                <div class="card-04">
+                	<h2>Pending Videos <a href="">({{pendingvideo}})</a></h2>
+					{% for video in videos %}
+					<div class="card-03" style="padding: 20px;">
+						<div class="video-list">
+							<div class="li">
+								<div class="video-img">
+									<a href="{% url 'update-video' video.id %}"><img src="{{ video.indeximg.url }}" alt="">
+								</div>
+								<div class="video-list-video-title">
+									<h5>{{ video.title|truncatechars:40 }}</h5></a>
+									<a href="{% url 'update-video' video.id %}"><div class="video-topic"><h6>{{ video.videocat|truncatechars:18 }}</h6></div></a>
+									<small><span><a href="https://www.youtube.com/@balzacujsag/videos">Videók </a></span>  |  <span><a href="https://www.youtube.com/@balzacujsag"> Balzac</a></span></small>
+								</div>
+							</div>
+						</div>
+						</div>
+					
+					{% endfor %}
+				</div>
+				<div class="card-04">
+					<h2>Pending Articles <a href="">({{pendingarticle}})</a></h2>
+					{% for article in articles %}
+					<div class="card-03" style="padding: 20px;">
+						<div class="video-list">
+							<div class="li">
+								<div class="video-img">
+									<a href="{% url 'update-article' article.id %}"><img src="{{ article.indeximg.url }}" alt="">
+								</div>
+								<div class="video-list-video-title">
+									<h5>{{ article.title|truncatechars:40 }}</h5></a>
+									<a href="{% url 'update-article' article.id %}"><div class="video-topic"><h6>{{ article.category }}</h6></div></a>
+									<small><span><a href="">{{ article.created }} </a></span>  |  <span><a href=""> {{ article.author }}</a></span></small>
+								</div>
+							</div>
+						</div>
+						</div>
+					
+					{% endfor %}
+				</div>
+            {% include 'dash/footer.html' %}
+		</main>
+</div>
+	</body>
+</html>

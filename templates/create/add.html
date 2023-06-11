@@ -1,0 +1,68 @@
+{% load static %}
+{% load custom_tag %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Creationboard- add new</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+	<link rel="stylesheet" type="text/css" href="{% static 'create/style.css' %}">
+	<link rel="icon" type="image/x-icon" href="{% static 'create/pics/favicon-alpha.png' %}">
+</head>
+<body>
+
+<div class="wrapper">
+	<div class="boxes">
+		{% if request.user|is_admin %}
+		<div class="box-1">
+			<a href="{% url 'aboutus-creation' %}" align="center">
+				<span class="material-symbols-outlined box">roundabout_right</span>
+				<h3 class="m-0" align="center">About Us</h3>
+			</a>
+		</div>
+		<div class="box-1">
+			<a href="{% url 'team' %}">
+				<span class="material-symbols-outlined box">diversity_3</span>
+				<h3 class="m-0" align="center">Team</h3>
+			</a>
+		</div>
+		{% endif %}
+		<div class="box-1">
+			<a href="{% url 'create-article' %}">
+				<span class="material-symbols-outlined box">document_scanner</span>
+				<h3 class="m-0" align="center">Article</h3>
+			</a>
+		</div>
+	</div>
+	<div class="boxes">
+		<div class="box-1">
+			<a href="{% url 'video' %}" align="center">
+				<span class="material-symbols-outlined box">play_circle</span>
+				<h3 class="m-0" align="center">video</h3>
+			</a>
+		</div>
+		{% if request.user|is_admin %}
+		<div class="box-1">
+			<a href="{% url 'create-categories' %}" align="center">
+				<span class="material-symbols-outlined box">category</span>
+				<h3 class="m-0" align="center">Categories</h3>
+			</a>
+		</div>
+		{% endif %}
+		{% if request.user|is_admin %}
+		<div class="boxes">
+			<div class="box-1">
+				<a href="{% url 'whaa-article' %}" align="center">
+					<span class="material-symbols-outlined box">unknown_document</span>
+					<h3 class="m-0" align="center">Miről írjak?</h3>
+				</a>
+			</div>
+		</div>
+		{% endif %}
+	</div>
+	</div>
+</div>
+
+</body>
+</html>

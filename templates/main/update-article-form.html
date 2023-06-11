@@ -1,0 +1,45 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Update Article</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+	<link rel="stylesheet" type="text/css" href="{% static 'main/style.css' %}">
+	<link rel="icon" type="image/x-icon" href="{% static 'main/pics/favicon-alpha.png' %}">
+</head>
+<body>
+		<main>
+			<div class="wrapper">
+				<div class="row">
+
+					<div class="card-05">
+						<h2 align="center">Küldj nekünk cikket!</h2>
+						<div>
+							<form class="contact-us-input-lay" method="POST" enctype="multipart/form">
+								{% csrf_token %}
+                                {{ form.media }}
+								{{ form.indeximg }}
+								{{ form.category }}
+								{{ form.title }}
+								<div class="no-acc">
+										{{ form.body }}
+										<h5>Miről írj cikket? <span class="txt-black">Nézd meg <a class="txt-black" href="{% url 'what-about-article' %}">itt</a>!</span></h5>
+									<div class="accept-box pd-0">
+										{% for message in messages %}
+                                        <p aling="center">{{message}}</p>
+                                        {% endfor %}
+									</div>
+								</div>
+									<button class="send-btn" type="submit">KÜLDÉS!</button>
+							<form>
+					</div>
+
+				</div>	
+			</div>
+		</main>
+
+</body>
+</html>

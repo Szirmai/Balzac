@@ -1,0 +1,85 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Web'dash</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'dash/style.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'dash/style1.css' %}">
+	<link rel="icon" type="image/x-icon" href="{% static 'dash/favicon1.png' %}">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+
+    <style>
+        #customers td {
+            text-align: left
+        }
+    </style>
+
+    {% include 'dash/navbartop.html' %}
+
+
+	{% include 'dash/navbarphone.html' %}
+
+
+<div class="grid">
+	
+{% include 'dash/navbarside.html' %}
+    
+    <main class="main">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="card-03" style="padding: 20px;">
+            <h1 align="center">
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            </h1>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <div class="row">
+            <div class="card-03">
+                <h2>Manage Users</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    <table id="customers">
+                      <thead>
+                        <tr>
+                          <th>User</th>
+                          <th>Groups</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for user in users %}
+                          <tr>
+                            <td>{{ user.username }}</td>
+                            <td>
+                              {% for group in groups %}
+                                <input type="checkbox" name="groups" value="{{ group.id }}" {% if group in user.groups.all %}checked{% endif %}>
+                                {{ group.name }}
+                                <br>
+                              {% endfor %}
+                            </td>
+                            <td>
+                              <input type="hidden" name="user_id" value="{{ user.id }}">
+                              <button type="submit" name="remove">Remove</button>
+                              <button type="submit" name="save">Save</button>
+                            </td>
+                          </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </form>
+             
+            </div>
+        </div>
+        {% include 'dash/footer.html' %}
+    </main>
+</div>
+
+</body>
+</html>

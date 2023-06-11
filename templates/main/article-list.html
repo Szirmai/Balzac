@@ -1,0 +1,18 @@
+<div class="card-04">
+    {% for article in article3 %}
+    <div class="article-with-pic-1">
+        <a href="{% url 'article' article.id %}">
+        <div class="article-pic">
+            <img src="{{ article.indeximg.url }}" alt="" />
+        </div>
+        <div class="pic-with-articles">
+            <a href="{% url 'article' article.id %}">
+                <h5>{{ article.title|truncatechars:60 }}</h5>
+                <h6>{{ article.body|truncatechars:150|safe }}</h6>
+            </a>
+            <small><span><a href="{% url 'article-page' article.category %}">{{ article.category }}</a></span>  |  <span><a href="{% url 'profile-page' article.user.username %}">{{ article.user.profile.name }}</a></span></small>
+        </div>
+        </a>
+    </div>
+    {% endfor %}
+</div>

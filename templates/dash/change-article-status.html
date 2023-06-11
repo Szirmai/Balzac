@@ -1,0 +1,50 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Web'dash</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'dash/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'dash/style1.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'dash/favicon1.png' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+
+    {% include 'dash/navbartop.html' %}
+    {% include 'dash/navbarphone.html' %}
+<div class="grid">
+{% include 'dash/navbarside.html' %}
+
+        <main class="main">
+            <div class="row">
+                <div class="card-03" style="padding: 20px;">
+                    <h1 align="center"><a href="">Articles</a></h1>
+                </div>
+            </div>
+                    <div class="card-03" style="padding: 20px;">
+                        <form method="POST">
+                            {% csrf_token %}
+                            {{ form.status }}
+                            <button class="small-button" type="submit">Save</button>
+                        </form>
+                    </div>
+                    <div class="row">
+                        <div class="card-03" style="padding: 20px;">
+                            <h3>Article title:</h3> <h5>{{ articleuser.title|truncatechars:60 }}</h5>
+                            <h3>Article category:</h3> <h5>{{ articleuser.category }}</h5>
+                            <h3>Article host:</h3> <h5>{{ articleuser.user.profile.name }}</h5>
+                            <h3>Article body:</h3> <h5>{{ articleuser.body|safe }}</h5>
+                            <h3>Index image:</h3> <img src="{{ articleuser.indeximg.url }}" alt="" style="width: 50%">
+                        </div>
+                    </div>
+
+
+            {% include 'dash/footer.html' %}
+        </main>
+    </div>
+    </body>
+</html>

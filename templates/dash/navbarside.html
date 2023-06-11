@@ -1,0 +1,54 @@
+{% load custom_tag %}
+<section>
+    <div class="sidebar-side">
+        <ul class="sidebar-nav">
+
+            <li class="nav-item">
+                <a href="{% url 'home' %}" class="nav-link">
+                    <span class="material-symbols-outlined">grid_view</span>
+                    <h2 class="link-text">Dashboard</h2>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{% url 'all-users' %}" class="nav-link">
+                    <span class="material-symbols-outlined">person</span>
+                    <h2 class="link-text">Felhasználók</h2>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{% url 'update' %}" class="nav-link">
+                    <span class="material-symbols-outlined">edit</span>
+                    <h2 class="link-text">Edit</h2>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{% url 'tasks' %}" class="nav-link">
+                    <span class="material-symbols-outlined">format_list_bulleted</span>
+                    <h2 class="link-text">Tasks</h2>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'manage-vau-pending' %}" class="nav-link">
+                    <span class="material-symbols-outlined">folder_managed</span>
+                    <h2 class="link-text">Pending</h2>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'not-yet' %}" class="nav-link">
+                    <span class="material-symbols-outlined">mail</span>
+                    <h2 class="link-text">Contact Us</h2>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'logout' %}" class="nav-link">
+                    <span class="material-symbols-outlined">logout</span>
+                    <h2 class="link-text">Kijelentkezés</h2>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+</section>

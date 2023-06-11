@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-2KL1G40CWG"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	
+	  gtag('config', 'G-2KL1G40CWG');
+	</script>
+	
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Munkatársaink</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+	<link rel="stylesheet" type="text/css" href="{% static 'main/style.css' %}">
+	<link rel="icon" type="image/x-icon" href="{% static 'main/pics/favicon-alpha.png' %}">
+</head>
+<body>
+
+	{% include 'main/navbar.html' %}
+
+	<main>
+		<div class="wrapper">
+			<div class="card-06 mb-3">
+				{% for team in teams %}
+				<div class="card-07"><a href="{% url 'munkatars' team.id %}">
+					<div class="team-img">
+						<img src="{{team.img.url}}" alt="#">
+						<h3 class="white" align="center">{{ team.name }}</h3>
+						<h5 class="white" align="center">{{ team.description|truncatechars:200 }}</h5>
+						<p align="center"><button class="check-member-btn" href="{% url 'munkatars' team.id %}">Csekkolom!</button><p></a>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</main>
+
+	{% include 'main/footer.html' %}
+
+</body>
+</html>

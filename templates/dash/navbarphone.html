@@ -1,0 +1,32 @@
+{% load custom_tag %}
+<div class="responsive-nav">
+    <div>
+        <ul class="flex-row-ect">
+            <li class="tiny-text-flex"><a href="{% url 'home' %}"><span class="material-symbols-outlined">grid_view</span></a>
+                <small>Dash</small>
+            </li>
+            <li class="tiny-text-flex"><a href="{% url 'all-users' %}"><span class="material-symbols-outlined">person</span></a>
+                <small>Users</small>
+            </li>
+            {% if request.user|is_admin %}
+            <li class="tiny-text-flex"><a href="{% url 'update' %}"><span class="material-symbols-outlined">edit</span></a>
+                <small>Edit</small>
+            </li>
+            {% endif %}
+            <li class="tiny-text-flex"><a href="{% url 'tasks' %}"><span class="material-symbols-outlined">format_list_bulleted</span></a>
+                <small>Tasks</small>
+            </li>
+            <li class="tiny-text-flex"><a href="{% url 'not-yet' %}"><span class="material-symbols-outlined">mail</span></a>
+                <small>Cont...</small>
+            </li>
+            {% if request.user|is_admin %}
+            <li class="tiny-text-flex"><a href="{% url 'manage-article' %}"><span class="material-symbols-outlined">folder_managed</span></a>
+                <small>Mana...</small>
+            </li>
+            {% endif %}
+            <li class="tiny-text-flex"><a href="{% url 'logout' %}"><span class="material-symbols-outlined">logout</span></a>
+                <small>Kije..</small>
+            </li>
+        </ul>
+    </div>
+</div>

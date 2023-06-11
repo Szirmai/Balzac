@@ -1,0 +1,223 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2KL1G40CWG"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-2KL1G40CWG');
+</script>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Balzac</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+	<link rel="stylesheet" type="text/css" href="{% static 'main/style.css' %}">
+	<link rel="icon" type="image/x-icon" href="{% static 'main/pics/favicon-alpha.png' %}">
+</head>
+<body>
+	{% include 'main/navbar.html' %}
+	<main>
+		<div class="wrapper big-screen">
+			<div class="row">
+				<div class="card-01 pd-0">
+					{% for article in article1 %}
+					<a href="{% url 'article' article.id %}">
+					<img src="{{ article.indeximg.url }}" alt="#" href="#" />
+					</a>
+					<div  class="index-title">
+						<div class="small-red-info">{{ article.articletype }}</div>
+
+						<h2><a href="{% url 'article' article.id %}">{{ article.title|truncatechars:100 }}</a></h2>						
+						<small><span><a href="{% url 'article-page' article.category %}">{{ article.category }}</a></span>  |  <span><a href="{% url 'profile-page' article.user.username %}">{{article.user.profile.name}}</a></span></small>
+					</div>
+					{% endfor %}
+				</div>
+
+				<div class="card-02 bg-dark">
+					{% for article in article2 %}
+					<div class="recent-articles mt-4">
+						<a href="{% url 'article' article.id %}">
+							<h5>{{ article.title|truncatechars:30 }}</h5>
+							<h6>{{ article.body|truncatechars:70|safe }}</h6>
+						</a>
+						<small><span><a href="{% url 'article-page' article.category %}">{{ article.category }}</a></span>  |  <span><a href="{% url 'profile-page' article.user.username %}">{{article.user.profile.name}}</a></span></small>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+			<div class="row">
+				<div class="card-03">
+					<div class="box-title">
+						<h4 class="txt-black"><a href="{% url 'cats' %}" style="color: black;">Kategóriák</a><h4>
+					</div>
+					<div class="box-categories">
+						<ul>
+							{% for category in category1 %}
+							<li><a href="{% url 'article-page' category.name %}" class="txt-black">{{ category.name }}</a></li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+				{% include 'main/article-list.html' %}
+			</div>
+
+			<div class="row">
+				<div class="card-04">
+					<div class="box-title">
+						<h4 class="txt-black">Támogatsd a Balzac-ot<h4>
+					</div>
+					<p align="center" class="support-button"><a href="https://www.patreon.com/balzacponthu?fbclid=IwAR3JOQYT3R9V432b2VWC6NUcg5xKVvSdW35aFnE5x-G6miomHZGDAsoMr7c" target="blank">
+					<button href="https://www.patreon.com/balzacponthu?fbclid=IwAR3JOQYT3R9V432b2VWC6NUcg5xKVvSdW35aFnE5x-G6miomHZGDAsoMr7c">Támogatás Pateron-on</button>
+					</a></p>
+				</div>
+			</div>
+
+			{% include 'main/video-component.html' %}
+		</div>
+	</div>
+		<div class="wrapper small-screen">
+
+			<div class="row">
+				<div class="card-04 article">
+					{% for article in article1 %}
+					<a href="{% url 'article' article.id %}">
+						<img src="{{ article.indeximg.url }}" alt="">
+						<div class="balzac-index-img">
+							<p>{{ article.articletype }}</p><br>
+							<h3>{{ article.title|truncatechars:110 }}</h3>
+							<small><span><a href="{% url 'article-page' article.category %}">{{ article.category }}</a></span>  |  <span><a href="{% url 'profile-page' article.user.username %}">{{article.user.profile.name}}</a></span></small>
+						</div>
+					</a>
+					{% endfor %}
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="card-04">
+					<div class="box-title">
+						<h4 class="txt-black">Trending<h4>
+						</div>
+							{% for article in article5 %}
+					<div class="recent-articles mt-4 txt-black">
+						<a href="{% url 'article' article.id %}">
+							<h5 class="txt-black">{{ article.title|truncatechars:30 }}</h5>
+							<h6 class="txt-black">{{ article.body|truncatechars:70|safe }}</h6>
+						</a>
+						<small class="txt-black"><span><a class="txt-black" href="{% url 'article-page' article.category %}">{{ article.category }}</a></span>  |  <span><a class="txt-black" href="{% url 'profile-page' article.user.username %}">{{article.user.profile.name}}</a></span></small>
+					</div>
+					{% endfor %}
+					{% for article in article8 %}
+					<div class="recent-articles mt-4 mb-3 txt-black">
+						<a href="{% url 'article' article.id %}">
+							<img class="mobile-pics-img" src="{{ article.indeximg.url }}" alt="">
+							<h5 class="txt-black">{{ article.title|truncatechars:30 }}</h5>
+							<h6 class="txt-black">{{ article.body|truncatechars:70|safe }}</h6>
+						</a>
+						<small class="txt-black"><span><a class="txt-black" href="{% url 'article-page' article.category %}">{{ article.category }}</a></span>  |  <span><a class="txt-black" href="{% url 'profile-page' article.user.username %}">{{article.user.profile.name}}</a></span></small>
+					</div>
+					{% endfor %}
+					{% for article in article9 %}
+					<div class="recent-articles mt-4 txt-black">
+						<a href="{% url 'article' article.id %}">
+							<h5 class="txt-black">{{ article.title|truncatechars:30 }}</h5>
+							<h6 class="txt-black">{{ article.body|truncatechars:70|safe }}</h6>
+						</a>
+						<small class="txt-black"><span><a class="txt-black" href="{% url 'article-page' article.category %}">{{ article.category }}</a></span>  |  <span><a class="txt-black" href="{% url 'profile-page' article.user.username %}">{{article.user.profile.name}}</a></span></small>
+					</div>
+					{% endfor %}
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="card-04">
+						<div class="box-title">
+							<h4 class="txt-black">Támogatsd a Balzac-ot<h4>
+						</div>
+						<p align="center" class="support-button"><a href="https://www.patreon.com/balzacponthu?fbclid=IwAR3JOQYT3R9V432b2VWC6NUcg5xKVvSdW35aFnE5x-G6miomHZGDAsoMr7c" target="blank">
+						<button href="https://www.patreon.com/balzacponthu?fbclid=IwAR3JOQYT3R9V432b2VWC6NUcg5xKVvSdW35aFnE5x-G6miomHZGDAsoMr7c">Támogatás Pateron-on</button>
+						</a></p>
+					</div>
+				</div>
+
+			<div class="row">
+				<div class="card-04">
+					<div class="box-title">
+						<h4 class="txt-black">Legújabb videóink<h4>
+					</div>
+					<div class="video-list">
+						{% for video in video4 %}
+						<div class="li">
+							<div class="video-img">
+								<a href="{{ video.url }}" target="blank"><img src="{{ video.indeximg.url }}" alt="">
+							</div>
+							<div class="video-list-video-title">
+								<h5>{{ video.title|truncatechars:40 }}</h5></a>
+								<a href="{{ video.url }}" target="blank"><div class="video-topic"><h6>{{ video.videocat|truncatechars:18 }}</h6></div></a>
+								<small><span><a href="https://www.youtube.com/@balzacujsag/videos" target="blank">Videók </a></span>  |  <span><a href="https://www.youtube.com/@balzacujsag" target="blank"> Balzac</a></span></small>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="card-04">
+					<div class="box-title">
+						<h4 class="txt-black">Trending<h4>
+					</div>
+						{% for article in article6 %}
+					<div class="recent-articles mt-4 mb-3 txt-black">
+						<a href="{% url 'article' article.id %}">
+							<img class="mobile-pics-img" src="{{ article.indeximg.url }}" alt="">
+							<h5 class="txt-black">{{ article.title|truncatechars:30 }}</h5>
+							<h6 class="txt-black">{{ article.body|truncatechars:70|safe }}</h6>
+						</a>
+						<small class="txt-black"><span><a class="txt-black" href="{% url 'article-page' article.category %}">{{ article.category }}</a></span>  |  <span><a class="txt-black" href="{% url 'profile-page' article.user.username %}">{{article.user.profile.name}}</a></span></small>
+					</div>
+					{% endfor %}
+					</div>
+				</div>
+
+			<div class="row">
+				<div class="card-04">
+					<div class="box-title">
+						<h4 class="txt-black">Támogatsd a Balzac-ot<h4>
+					</div>
+					<p align="center" class="support-button"><a href="https://www.patreon.com/balzacponthu?fbclid=IwAR3JOQYT3R9V432b2VWC6NUcg5xKVvSdW35aFnE5x-G6miomHZGDAsoMr7c" target="blank">
+					<button href="https://www.patreon.com/balzacponthu?fbclid=IwAR3JOQYT3R9V432b2VWC6NUcg5xKVvSdW35aFnE5x-G6miomHZGDAsoMr7c">Támogatás Pateron-on</button>
+					</a></p>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="card-04">
+					<div class="box-title">
+						<h4 class="txt-black">Old news<h4>
+					</div>
+			{% for article in article7 %}
+					<div class="recent-articles mt-4 txt-black">
+						<a href="{% url 'article' article.id %}">
+							<h5 class="txt-black">{{ article.title|truncatechars:30 }}</h5>
+							<h6 class="txt-black">{{ article.body|truncatechars:70|safe }}</h6>
+						</a>
+						<small class="txt-black"><span><a class="txt-black" href="{% url 'article-page' article.category %}">{{ article.category }}</a></span>  |  <span><a class="txt-black" href="{% url 'profile-page' article.user.username %}">{{article.user.profile.name}}</a></span></small>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+
+		</div>
+	</main>
+
+	{% include 'main/footer.html' %}
+
+</body>
+</html>
