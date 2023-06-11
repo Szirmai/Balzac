@@ -1,0 +1,48 @@
+{% load static %}
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Bejelentkezés</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+	<link rel="stylesheet" type="text/css" href="{% static 'main/style.css' %}">
+	<link rel="icon" type="image/x-icon" href="{% static 'main/pics/favicon-alpha.png' %}">
+</head>
+<body>
+		<main class="mt-3 pt-2">
+			<div class="wrapper">
+				<div class="row">
+
+					<div class="card-05">
+						<h2 align="center">Profil Frissítése</h2>
+						<div>
+							{% for message in messages %}
+								<p align='center'>{{ message }}<p>
+							{% endfor %}
+
+							<form class="contact-us-input-lay" method="POST" enctype="multipart/form-data">
+								{% csrf_token %}
+								{{ userupdate.username }}
+                                {{ userupdate.password1 }}
+								{{ userupdate.password2 }}
+								<!--{{ userupdate.email }}-->
+                                {{ profileupdate.img }}
+								{{ profileupdate.name }}
+								{{ profileupdate.bio }}
+								<div class="no-acc">
+									<div class="accept-box pd-0">
+										{{ form.errors }}
+									</div>
+								</div>
+									<button class="send-btn" type="submit">KÜLDÉS!</button>
+							</form>
+						</div>
+					</div>
+
+				</div>	
+			</div>
+		</main>
+
+</body>
+</html>

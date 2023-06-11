@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Web'dash</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'dash/style.css' %}">
+	<link rel="icon" type="image/x-icon" href="{% static 'dash/favicon1.png' %}">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+	{% include 'dash/navbartop.html' %}
+	{% include 'dash/navbarphone.html' %}
+<div class="grid">
+	{% include 'dash/navbarside.html' %}
+
+    	<main class="main">
+			{% for message in messages %}
+			<div class="card-03" style="padding: 20px;">
+				<h1 align="center"><a href="/">{{ message }}</a></h1>
+			</div>
+			{% endfor %}
+			<div class="row">
+                <div class="card-03 cost">
+                	<h2>Tasks to Do</h2>
+					<table id="customers">
+						<thead>
+					  <tr class="pos-r">
+					    <th>Edit</th>
+					    <th>Task Title</th>
+						<th>Delete</th>
+					  </tr>
+					  </thead>
+					  {% for task in tasks %}
+					  <tr>
+					    <td><a href="{% url 'update-task' task.id %}">Edit</a></td>
+					    <td><a href="{% url 'task' task.id %}">{{ task.title|truncatechars:160 }}</a></td>
+					    <td><a href="{% url 'delete-task' task.id %}"><button style="background: red; cursor: pointer" href="task.html">Delete!</button></a></td>
+					  </tr>
+					  {% endfor %}
+					</table>
+                </div>
+            </div>
+			<div class="row">
+				<div class="card-03" style="padding: 20px;">
+					<h2 style="margin-bottom: 30px">Add Tasks</h2>
+					<form method="POST" enctype="multipart/form-data" action="">
+						{% csrf_token %}
+						<div style="display: flex; flex-direction: row; justify-content: center; align-items: center; flex-wrap: wrap;">
+							<div style="margin: 10px 20px">{{ form.title }}</div>
+							<div style="margin: 10px 20px">{{ form.description }}</div>
+							<div style="margin: 10px 20px">{{ form.details}}</div>
+						</div>
+						<p align="center">
+						<button type="submit" style="color: black; width: 90%; padding: 10px; margin: 10px; transition: 0.5s; cursor: pointer; background: #E4EF6C; border-radius: 5px">Upload</button>
+						</p>
+					</form>
+					{% for message in messages %}
+					 <p style="color: red;">{{ message }}</p>
+					{% endfor %}
+				</div>
+			</div>
+            {% include 'dash/footer.html' %}
+		</main>
+</div>
+	</body>
+</html>

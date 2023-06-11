@@ -1,0 +1,179 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Profile Page</title>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+	<link rel="stylesheet" type="text/css" href="{% static 'main/style.css' %}">
+	<link rel="icon" type="image/x-icon" href="{% static 'pics/favicon-alpha.png' %}">
+	<link rel="icon" type="image/x-icon" href="{% static 'main/pics/favicon-alpha.png' %}">
+</head>
+<body>
+	{% include 'main/navbar.html' %}
+
+
+	<main>
+		<div class="wrapper">
+			<div class="row">
+				<div class="card-04 profile pd-0">
+					<section class="profile-design-card flex-col">
+						<div class="header-of-card">
+							<div class="img-profile-format">
+								<img src="{{ user.profile.img.url }}">
+							</div>
+							<div class="flex-row mt-3">
+								<div class="profile-header-sec-1"></div>
+								<div class="flex-row profile-header-sec-2">
+									<div class="align-center">
+										<h2 class="mb-0 mt-0">{{ user.profile.name }}</h2>
+										<h4 class="m-0 mb-2">@ {{ user.username }}</h4>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="aassdd hidden-under-550">
+							{% if request.user == user %}
+							<a href="{% url 'profile-update' %}"><div class="icon-profile" style="padding: 10px 12px 11px 12px"><span class="material-symbols-outlined">edit</span></div></a>
+							<a href="{% url 'upload-article' %}"><div class="icon-profile" style="padding: 10px 12px 11px 12px"><span class="material-symbols-outlined">add</span></div></a>
+							<a href="{% url 'logout' %}"><div class="icon-profile" style="padding: 10px 12px 11px 12px"><span class="material-symbols-outlined">logout</span></div></a>
+							<a href="{% url 'all-articles' %}"><div class="icon-profile" style="padding: 10px 12px 11px 12px"><span class="material-symbols-outlined">description</span></div></a>
+							{% endif %}
+						</div>
+						<div class="main-section">
+							<div class="nav-profile">
+								<p>{{ user.profile.bio }}<p>
+							</div>
+							<div class="main-section-profile-articles">
+								{% for message in messages %}
+								<div class="card-04 pb-3" style="padding: 20px; margin-bottom: 20px;">
+									<h1 align="center"><a href="/" style="color: black">{{ message }}</a></h1>
+								</div>
+								{% endfor %}
+								{% if teamarticles %}
+								{% for article in teamarticles %}
+								<a href="{% url 'article' article.id %}">
+								<div class="article-with-pic-1">
+									<div class="article-pic">
+										<a href="{% url 'article' article.id %}">
+										<img scr="{{ article.indeximg.url }}" alt="" />
+										</a>
+									</div>
+									<div class="pic-with-articles">
+										<a href="{% url 'article' article.id %}">
+											{% if request.user == user %}
+													<a href="{% url 'update-article-main' article.id %}"><div class="icon-profile"><span class="material-symbols-outlined edit">edit</span>Szerkesztés...</div></a>
+													<a href="{% url 'delete-article-main' article.id %}"><div class="icon-profile" style="color: red;"><span class="material-symbols-outlined edit">delete</span>Delete...</div></a>
+												{% endif %}
+											<h5><a href="{% url 'article' article.id %}" style="color: black">{{ article.title|truncatechars:50 }}</a></h5>
+											<h6><a href="{% url 'article' article.id %}" style="color: black">{{ article.body|truncatechars:200|safe }}</a></h6>
+										</a>
+										<small><span><a href="{% url 'article-page' article.category %}">{{ article.category }}</a></span>  |  <span><a href="">{{ article.created}}</a></span></small>
+									</div>
+								</div>
+								</a>
+								{% endfor %}
+								{% else %}
+								
+							{% endif %}
+							{% if articles %}
+								{% for article in articles %}
+								<a href="{% url 'user-article' article.id %}">
+								<div class="article-with-pic-1">
+									<div class="article-pic">
+										<a href="{% url 'user-article' article.id %}">
+										<img scr="{{ article.indeximg.url }}" alt="" />
+										</a>
+									</div>
+									<div class="pic-with-articles">
+										<a href="{% url 'user-article' article.title %}">
+											{% if request.user == user %}
+													<a href="{% url 'update-article-main' article.id %}"><div class="icon-profile"><span class="material-symbols-outlined edit">edit</span>Szerkesztés...</div></a>
+													<a href="{% url 'delete-article-main' article.id %}"><div class="icon-profile" style="color: red;"><span class="material-symbols-outlined edit">delete</span>Delete...</div></a>
+												{% endif %}
+											<h5><a href="{% url 'user-article' article.title %}" style="color: black">{{ article.title|truncatechars:50 }}</a></h5>
+											<h6><a href="{% url 'user-article' article.title %}" style="color: black">{{ article.body|truncatechars:200|safe }}</a></h6>
+										</a>
+										<small><span><a href="{% url 'article-page' article.category %}">{{ article.category }}</a></span>  |  <span><a href="">{{ article.created|timesince }} ago</a></span></small>
+									</div>
+								</div>
+								</a>
+								{% endfor %}
+								{% else %}
+								
+							{% endif %}
+							</div>
+						</div>
+						<div class="mobile-main-section">
+							<div class="aassdd">
+							</div>
+							<div>
+								<div class="align-center">
+									<h2 align="center" class="mb-0 mt-0">{{ user.profile.name }}</h2>
+									<h4 align="center" class="m-0 mb-2">@ {{ user.username }}</h4>
+									<div align="center">
+										<h2 aling="center" style="margin: 0 0 50px 0">Még nincsenek cikkek!</h2>
+										<div class="aassdd small">
+											{% if request.user == user %}
+											<a href="{% url 'profile-update' %}"><div class="icon-profile" style="padding: 10px 12px 11px 12px"><span class="material-symbols-outlined">edit</span></div></a>
+											<a href="{% url 'upload-article' %}"><div class="icon-profile" style="padding: 10px 12px 11px 12px"><span class="material-symbols-outlined">add</span></div></a>
+											<a href="{% url 'logout' %}"><div class="icon-profile" style="padding: 10px 12px 11px 12px"><span class="material-symbols-outlined">logout</span></div></a>
+											<a href="{% url 'all-articles' %}"><div class="icon-profile" style="padding: 10px 12px 11px 12px"><span class="material-symbols-outlined">description</span></div></a>
+											{% else %}
+											<h4 aling="center">Nézd meg valaki más profilját...</h4>
+											{% endif %}
+										</div>
+									</div>
+								</div>
+								
+							</div>
+							<div>
+								<div class="card-04 backg pb-3 m-0 mb-3 mt-3">
+									<h3 align="center">{{ user.profile.bio}}</h3>
+								</div>
+							</div>
+							<div>
+								<div class="box-title">
+									<h4 class="txt-black">Cikkek<h4>
+								</div>
+								<div class="main-section-profile-articles">
+									{% if articles %}
+										{% for article in articles %}
+										<div class="recent-articles mt-4 mb-3 txt-black">
+												{% if request.user == user %}
+												<a href="{% url 'update-article-main' article.id %}"><div class="icon-profile"><span class="material-symbols-outlined article">edit</span>Szerkesztés...</div></a>
+												<a href="{% url 'delete-article-main' article.id %}"><div class="icon-profile" style="color: red;"><span class="material-symbols-outlined article">delete</span><div style="padding-left: 20px;">Delete...</div></div></a>
+												{% endif %}
+											<a href="{% url 'user-article' article.title %}">
+												<img class="mobile-pics-img" src="{{ article.indeximg.url }}" alt="">
+												<h3 class="txt-black">{{ article.title|truncatechars:30 }}</h3>
+												<h4 class="txt-black">{{ article.body|truncatechars:70|safe }}</h4>
+											</a>
+											<small class="txt-black"><span><a class="txt-black" href="{% url 'article-page' article.category %}"></a></span>  |  <span><a class="txt-black" href="{% url 'article-page' article.category %}">{{ article.category }}</a></span></small>
+										</div>
+										{% endfor %}
+										{% else %}
+										<div align="center">
+											<h2 aling="center">Még nincsenek cikkek!</h2>
+											{% if request.user == user %}
+											<h4><a href="{% url 'profile-update' %}" style="color: black;">Profil Szerkesztése...</a></h4>
+											<h4><a href="{% url 'upload-article' %}" style="color: black;">Cikk hozzáadása +</a></h4>
+											{% else %}
+											<h4>Nézd meg valaki más profilját...</h4>
+											{% endif %}
+										</div>
+									{% endif %}
+									</div>
+							</div>
+						</div>
+					</section>
+				</div>				
+			</div>
+		</div>
+	</main>
+
+		{% include 'main/footer.html' %}
+
+</body>
+</html>

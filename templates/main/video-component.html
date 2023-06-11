@@ -1,0 +1,51 @@
+{% load static %}
+
+<div class="row">
+    <div class="card-05">
+        <div class="video-col-1">
+            <div class="flex-col-1">
+                {% for video in video1 %}
+                <div class="index-pic">
+                    <a href="{{ video.url }}" target="blank"><img src="{{ video.indeximg.url }}" alt="" />
+                    <a href="{{ video.url}}" target="blank"><div class="video-hover-title">
+                        <h6>{{ video.title|truncatechars:60 }}</h6></a>
+                        <a href="{{ video.url }}" target="blank"><div class="video-topic-hover"><h5>- {{ video.videocat }}</h5></div></a>
+                        <small><span><a href="{{ video.url }}" target="blank">{{ video.created|timesince }} ago</a></span>  |  <span><a href="https://www.youtube.com/@balzacujsag">Balzac</a></span></small>
+                    </div></a>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="flex-col-1">
+                {% for video in video2 %}
+                <div class="index-pic">
+                    <a href="{{ video.url }}" target="blank"><img src="{{ video.indeximg.url }}" alt="" />
+                    <a href="{{ video.url }}" target="blank"><div class="video-hover-title">
+                        <h6>{{ video.title|truncatechars:60 }}</h6></a>
+                        <a href="{{ video.url }}" target="blank"><div class="video-topic-hover"><h5>- {{ video.videocat }}</h5></div></a>
+                        <small><span><a href="{{ video.url }}" target="blank">{{ video.created|timesince }} ago</a></span>  |  <span><a href="https://www.youtube.com/@balzacujsag">Balzac</a></span></small>
+                    </div></a>
+                </div>
+                {% endfor %}
+            </div>
+
+
+            <div class="flex-col-2">
+                
+                <div class="video-list">
+                    {% for video in video3 %}
+                    <div class="li">
+                            <a href="{{ video.url }}" target="blank">
+                                <img src="{{ video.indeximg.url }}" alt="">
+                            </a>
+                        <div class="video-list-video-title">
+                            <h5>{{ video.title|truncatechars:40 }}</h5></a>
+                            <a href="{{ video.url }}" target="blank"><div class="video-topic"><h6>{{ video.videocat|truncatechars:18 }}</h6></div></a>
+                            <small><span><a href="https://www.youtube.com/@balzacujsag/videos" target="blank">Videók </a></span>  |  <span><a href="https://www.youtube.com/@balzacujsag" target="blank"> Balzac</a></span></small>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+    </div>
+</div>

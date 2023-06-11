@@ -1,0 +1,46 @@
+<form class="form" action="" method="POST">
+    {% csrf_token %}
+    <div class="form__group">
+        <p>Are you sure you want to delete "{{obj}}..."?</p>
+    </div>
+
+    <div class="for__group">
+        <input class="btn btn--main" type="submit" value="Confirm" />
+    </div>
+
+</form>
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Web'dash</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'dash/style.css' %}">
+	<link rel="icon" type="image/x-icon" href="{% static 'dash/favicon1.png' %}">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+<body>
+	{% include 'dash/navbartop.html' %}
+	{% include 'dash/navbarphone.html' %}
+
+<div class="grid">
+	{% include 'dash/navbarside.html' %}
+
+    	<main class="main">
+			{% for message in messages %}
+			<div class="card-03" style="padding: 20px;">
+				<h1 align="center"><a href="/">{{ message }}</a></h1>
+			</div>
+			{% endfor %}
+            <div class="card-03" style="padding: 20px;">
+                <form method="POST" action="">
+                    {% csrf_token%}
+                    <h3 align="center"><a href="/"><p>Are you sure you want to delete "{{obj}}..."?</p></a></h3><br>
+                    <p align="center"><button style="background: red; border: 0; padding: 10px 20px; cursor: pointer;" type="submit">Delete!</button></p>
+			</div>
+		</main>
+</div>
+	</body>
+</html>

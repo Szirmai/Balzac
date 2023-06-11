@@ -1,0 +1,105 @@
+{% load static %}
+<div class="screen-big">
+<nav>
+    <div class="nav-one nav-flex">
+        <div class="left flex">
+            <ul class="top-header mt-0">
+                <li><a href="{% url 'contact-us' %}"><h4>Kapcsolat</h4></a></li>
+                <li><h4>|</h4></li>
+                <li><a href="{% url 'about-us' %}"><h4>Rólunk</h4></a></li>
+                <li><h4>|</h4></li>
+                <li><a href="{% url 'team-index' %}"><h4>Csapatunk</h4></a></li>
+                <!--<li><input class="header" type="text" name="nav-search" placeholder="Keresés" style="margin: 21.28px;" /><h4></li>-->
+            </ul>
+        </div>
+        <div class="right flex">
+                <ul class="top-header">
+                    {% if request.user.is_authenticated %}
+                    <li>
+                        <div class="header-profile-pic">
+                            <div class="pic">
+                                <span class="material-symbols-outlined">account_circle</span>
+                            </div>
+                            <div class="header-profile-info">
+                                <h4><a href="{% url 'profile-page' request.user.username %}">@{{ request.user }}</a></h4>
+                                <h6><a href=""><span class="material-symbols-outlined">mail_lock</span>{{ request.user.email }}</a></h6>
+                            </div>
+                        </div>
+                    </li>
+                    <!--<li><h4><a href="{% url 'profile-page' request.user.username %}">Hello, @{{ request.user }}</a></h4></li>
+                    <li><h4>|</h4></li>
+                    <li><h4><a href="{% url 'logout' %}"><span class="material-symbols-outlined">logout</span>Kijelentkezés</a></h4></li>-->
+                    {% else %}
+                    <ul class="foot-icon-margin pd-0">
+                        <li class="signup-or-login"><a href="{% url 'register' %}" class="sign-up">Sign up</a><a href="{% url 'login' %}"><button class="login-btn">Log in</button></a></li>
+                        <!--<a href="https://www.facebook.com/profile.php?id=100090612766620" target="blank"><li><img src="{% static 'main/pics/facebook.png' %}" class="icon-img" alt="#" target="blank" /></a></li>
+                        <a href="https://www.instagram.com/balzacponthu/" target="blank"><li><img src="{% static 'main/pics/instagram.png' %}" class="icon-img" alt="#" /></li></a>
+                        <a href="https://www.tiktok.com/@balzac.ujsag" target="blank"><li><img src="{% static 'main/pics/tiktok.png' %}" class="icon-img" alt="#" /></li></a>
+                        <a href="https://www.youtube.com/@balzacujsag" target="blank"><li><img src="{% static 'main/pics/youtube.png' %}" class="icon-img" alt="#" /></li></a>-->
+                    </ul>
+                    {% endif %}
+                </ul>
+        </div>
+    </div>
+    <div class="nav-two nav-flex">
+        <div class="left flex">
+            <ul>
+                <a href="{% url 'index' %}"><li><img src="{% static 'main/pics/logo.png' %}" class="logo-img" alt="#" /></li>
+            </ul>
+        </div>
+        <div class="right">
+            <div class="social media">
+                <ul>
+                    <li><a href="{% url 'index' %}"><h3>Home</h3></a></li>
+                    {% for category in category2 %}
+                        <li><a href="{% url 'article-page' category.name %}"><h3>{{ category.name }}</h3></a></li>
+                    {% endfor %}                
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+</div>
+
+
+<div >
+    <nav class="screen-mid">
+        <div class="left flex size-mid">
+            <a href="{% url 'index' %}"><img src="{% static 'main/pics/logo.png' %}" class="logo-img" alt="#" />
+        </div>
+    </nav>
+    <div class="nav-out">
+        <div class="relative">
+            <a style="font-size: 30px" class="nyil-out">🢔</a>
+            <ul>
+                <div>
+
+                    <li><a href="/"><span class="material-symbols-outlined">star</span>Balzac</a></li>
+                        <div class="sub-menu">
+                            <ul>
+                                <li><a href="{% url 'contact-us' %}">Kapcsolat</a></li>
+                                <li><a href="{% url 'about-us' %}">Rólunk</a></li>
+                                <li><a href="{% url 'team-index' %}">Csapatunk</a></li>
+                            </ul>
+                        </div>
+                    <li><a href="{% url 'cats' %}"><span class="material-symbols-outlined">captive_portal</span>Kategóriák</a></li>
+                    <div class="sub-menu">
+                        <ul>
+                            {% for category in category2 %}
+                            <li><a href="{% url 'article-page' category.name %}">{{ category.name }}</a></li>
+                            {% endfor %}  
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'profile-page' request.user %}"><span class="material-symbols-outlined">manage_accounts</span>My Profile</a></li>
+                    <li><a href="{% url 'logout' %}"><span class="material-symbols-outlined">logout</span>Kijelentkezés</a></li>
+                    {% else %}
+                    <li><a href="{% url 'login' %}"><span class="material-symbols-outlined">login</span>Bejelentkezés</a></li>
+                    {% endif %}
+                </div>
+            </ul>
+        </div>
+    </div>
+</div>

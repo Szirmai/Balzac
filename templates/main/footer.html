@@ -1,0 +1,54 @@
+{% load static %}
+
+<footer>
+    <div class="footer">
+        <div class="footer-cols footer-firts">
+            <div class="col-01">
+                <ul class="pd-0">
+                    <a href="{% url 'index' %}"><li><img src="{% static 'main/pics/logo.png' %}" class="logo-img" alt="#" /></li>
+                </ul>
+                <h3>Fiataloktól fiataloknak!</h3>
+                <ul class="foot-icon-margin pd-0">
+                    <a href="https://www.facebook.com/profile.php?id=100090612766620" target="blank"><li><img src="{% static 'main/pics/facebook.png' %}" class="icon-img" alt="#" target="blank" /></a></li>
+                    <a href="https://www.instagram.com/balzacponthu/" target="blank"><li><img src="{% static 'main/pics/instagram.png' %}" class="icon-img" alt="#" /></li></a>
+                    <a href="https://www.tiktok.com/@balzac.ujsag" target="blank"><li><img src="{% static 'main/pics/tiktok.png' %}" class="icon-img" alt="#" /></li></a>
+                    <a href="https://www.youtube.com/@balzacujsag" target="blank"><li><img src="{% static 'main/pics/youtube.png' %}" class="icon-img" alt="#" /></li></a>
+                </ul>
+            </div>
+            <div class="col-02">
+                <div class="box-title">
+                    <h4 class="txt-black">Friss cikkek<h4>
+                </div>
+                {% for article in article4 %}
+                <ul class="pd-0">
+                    <li><a href="{% url 'article' article.id %}" class="footer-article-text">
+                        <h5 class="mt-1 mb-1">{{ article.title|truncatechars:49 }}</h5>
+                        <h6 class="m-0">{{ article.body|truncatechars:30|safe }}</h6>
+                        <small class="black"><span><a href="{% url 'article-page' article.category %}" class="black">{{ article.category }} </a></span>  |  <span><a class="black"> {{ article.created|timesince }} ago</a></span></small>
+                    </a></li>
+                </ul>
+                {% endfor %}
+            </div>
+            <div class="col-03">
+                <div class="box-title">
+                    <h4 class="txt-black">Kategóriák<h4>
+                </div>
+                <div class="box-categories">
+                    <ul>
+                        {% for category in category2 %}
+                        <li><a href="{% url 'article-page' category.name %}" class="txt-black">{{ category.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-second">
+            <div>
+                <h5><a href="#"> &copy; Balzac</a> All Right Reserved.<h5>
+            </div>
+            <div>
+                <h5><a href="">Designed by: Web'Still.</a><h5>
+            </div>
+        </div>
+    </div>
+</footer>
