@@ -18,6 +18,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from creationboard import views
+from django.contrib.staticfiles.urls import staicfiles_urlpatterns
 
 
 urlpatterns = [
@@ -29,3 +30,5 @@ urlpatterns = [
     path('ckeditor', include('ckeditor_uploader.urls')),
     # path('captcha/', include('captcha.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += staticfiles_urlpatterns()
